@@ -5,7 +5,6 @@ import { MoviePostType } from "../Store/Movie.types";
 
 interface IAddMovie {
   onAddMovie: (movie: MoviePostType) => void;
-  onPost: { status: boolean; fetch: boolean };
   fetchMovieHandler: () => void;
 }
 
@@ -13,19 +12,22 @@ const AddMovie: React.FC<IAddMovie> = (props) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const openingTextRef = useRef<HTMLTextAreaElement>(null);
   const releaseDateRef = useRef<HTMLInputElement>(null);
+  const [Status, setStatus] = useState(false);
 
-  function submitHandler(event: React.FormEvent) {
-    event.preventDefault();
+  const submitHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus(true);
     const movie = {
       title: titleRef.current!.value,
       openingText: openingTextRef.current!.value,
       releaseDate: releaseDateRef.current!.value,
     };
-    props.onAddMovie(movie);
+    await props.onAddMovie(movie);
+    setStatus(false);
     titleRef.current!.value = "";
     openingTextRef.current!.value = "";
     releaseDateRef.current!.value = "";
-  }
+  };
 
   return (
     <form className={classes.form} onSubmit={submitHandler}>
@@ -46,7 +48,7 @@ const AddMovie: React.FC<IAddMovie> = (props) => {
         <label htmlFor="date">Release Date</label>
         <input type="text" id="date" ref={releaseDateRef} required />
       </div>
-      <button type="submit" disabled={props.onPost.status}>
+      <button type="submit" disabled={Status}>
         Add Movie
       </button>
       <button className={classes.fetch} onClick={props.fetchMovieHandler}>
