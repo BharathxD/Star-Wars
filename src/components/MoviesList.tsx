@@ -12,7 +12,7 @@ const MoviesList: React.FC<IMovieListProp> = (props) => {
   return (
     <ul className={classes["movies-list"]}>
       {props.movies.map((movie) => (
-        <Movie movie={movie} />
+        <Movie movie={movie} key={movie.id} />
       ))}
     </ul>
   );

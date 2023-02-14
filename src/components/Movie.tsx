@@ -10,9 +10,9 @@ interface IMovie {
 
 const Movie: React.FC<IMovie> = (props) => {
   return (
-    <li className={classes.movie} key={props.movie.id}>
+    <li className={classes.movie}>
       <h2>{props.movie.title}</h2>
-      <h3>{props.movie.releaseDate}</h3>
+      <h3 className={classes["release-date"]}>{props.movie.releaseDate}</h3>
       <p>{props.movie.openingText}</p>
     </li>
   );

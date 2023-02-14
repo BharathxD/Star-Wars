@@ -17,6 +17,18 @@ function App() {
       openingText: "This is the second opening text of the movie",
       releaseDate: "2021-05-19",
     },
+    {
+      id: 3,
+      title: "Some Dummy Movie 3",
+      openingText: "This is the second opening text of the movie",
+      releaseDate: "2021-05-19",
+    },
+    {
+      id: 4,
+      title: "Some Dummy Movie 3",
+      openingText: "This is the second opening text of the movie",
+      releaseDate: "2021-05-19",
+    },
   ];
 
   return (
@@ -24,7 +36,7 @@ function App() {
       <section>
         <button>Fetch Movies</button>
       </section>
-      <section>
+      <section className="movies-section">
         <MoviesList movies={dummyMovies} />
       </section>
     </React.Fragment>
