@@ -5,33 +5,6 @@ import "./App.css";
 import { MovieType } from "./Store/Movie.types";
 
 function App() {
-  const dummyMovies = [
-    {
-      id: 1,
-      title: "Some Dummy Movie",
-      openingText: "This is the opening text of the movie",
-      releaseDate: "2021-05-18",
-    },
-    {
-      id: 2,
-      title: "Some Dummy Movie 2",
-      openingText: "This is the second opening text of the movie",
-      releaseDate: "2021-05-19",
-    },
-    {
-      id: 3,
-      title: "Some Dummy Movie 3",
-      openingText: "This is the second opening text of the movie",
-      releaseDate: "2021-05-19",
-    },
-    {
-      id: 4,
-      title: "Some Dummy Movie 3",
-      openingText: "This is the second opening text of the movie",
-      releaseDate: "2021-05-19",
-    },
-  ];
-
   const [getMovies, setMovies] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -67,7 +40,8 @@ function App() {
       </section>
       <section className="movies-section">
         {loading && <h4>Loading it may take a while...</h4>}
-        {!loading && <MoviesList movies={getMovies} />}
+        {!loading && getMovies.length > 0 && <MoviesList movies={getMovies} />}
+        {!loading && getMovies.length === 0 && <h4>Found no movies.</h4>}
       </section>
     </React.Fragment>
   );

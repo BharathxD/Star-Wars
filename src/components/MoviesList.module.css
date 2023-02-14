@@ -4,6 +4,8 @@
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  gap: 25px;
+  background-color: red;
 }
 
 @media screen and (min-width: 480px) {
