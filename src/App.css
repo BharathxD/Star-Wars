@@ -5,6 +5,32 @@
   text-align: center;
 }
 
+.loading-message {
+  border: 1px solid #fff;
+  border-radius: 25px;
+  padding: 10px;
+  animation: loading infinite 2s linear;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.error-message {
+  color: white;
+  background-color: rgb(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 10px;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
