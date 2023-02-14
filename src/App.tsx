@@ -34,22 +34,16 @@ function App() {
     <h4 className="loading-message">Loading it may take a while...</h4>
   );
 
-  if (error) {
-    Content = <h4 className="error-message">{error}</h4>;
-  }
-  if (!loading && getMovieData.length > 0) {
+  if (error) Content = <h4 className="error-message">{error}</h4>;
+  if (!loading && getMovieData.length > 0)
     Content = <MoviesList movies={getMovieData} />;
-  }
-  if (!loading && getMovieData.length === 0 && !error) {
+  if (!loading && getMovieData.length === 0 && !error)
     Content = <h4 className="error-message">Found no movies.</h4>;
-  }
+
   return (
     <div className="container">
       <section>
-        <AddMovie
-          fetchMovieHandler={fetchMovieHandler}
-          onAddMovie={setMovie}
-        />
+        <AddMovie fetchMovieHandler={fetchMovieHandler} onAddMovie={setMovie} />
       </section>
       <section>{Content}</section>
     </div>
