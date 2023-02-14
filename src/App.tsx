@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import MoviesList from "./components/MoviesList";
 import "./App.css";
 import { MovieType } from "./Store/Movie.types";
+import AddMovie from "./components/AddMovie";
 
 function App() {
   const [getMovies, setMovies] = useState<MovieType[]>([]);
@@ -56,13 +57,20 @@ function App() {
     Content = <h4 className="error-message">Found no movies.</h4>;
   }
 
+  const addMovieHandler = (movie: MovieType) => {
+    console.log(movie);
+  };
+
   return (
-    <React.Fragment>
+    <div className="container">
+      <section>
+        <AddMovie onAddMovie={addMovieHandler} />
+      </section>
       <section>
         <button onClick={fetchMovieHandler}>Fetch Movies</button>
+        {Content}
       </section>
-      <section className="movies-section">{Content}</section>
-    </React.Fragment>
+    </div>
   );
 }
 
