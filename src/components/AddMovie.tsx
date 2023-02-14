@@ -4,7 +4,7 @@ import classes from "./AddMovie.module.css";
 import { MoviePostType } from "../Store/Movie.types";
 
 interface IAddMovie {
-  onAddMovie: (movie: MoviePostType) => void;
+  onAddMovie: (movie: MoviePostType) => Promise<boolean>;
   fetchMovieHandler: () => void;
 }
 
@@ -12,18 +12,19 @@ const AddMovie: React.FC<IAddMovie> = (props) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const openingTextRef = useRef<HTMLTextAreaElement>(null);
   const releaseDateRef = useRef<HTMLInputElement>(null);
-  const [Status, setStatus] = useState(false);
+  const [Status, setStatus] = useState<boolean>(false);
 
-  const submitHandler = async (e: React.FormEvent) => {
+  const submitHandler = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     setStatus(true);
-    const movie = {
+    const movie: MoviePostType = {
       title: titleRef.current!.value,
       openingText: openingTextRef.current!.value,
       releaseDate: releaseDateRef.current!.value,
     };
-    await props.onAddMovie(movie);
-    setStatus(false);
+    const result: boolean = await props.onAddMovie(movie);
+    setStatus(!result);
+    setTimeout(() => setStatus(false), 5000);
     titleRef.current!.value = "";
     openingTextRef.current!.value = "";
     releaseDateRef.current!.value = "";
@@ -32,7 +33,13 @@ const AddMovie: React.FC<IAddMovie> = (props) => {
   return (
     <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.control}>
-        <input type="text" placeholder="Title" id="title" ref={titleRef} required />
+        <input
+          type="text"
+          placeholder="Title"
+          id="title"
+          ref={titleRef}
+          required
+        />
       </div>
       <div className={classes.control}>
         <textarea
@@ -44,12 +51,23 @@ const AddMovie: React.FC<IAddMovie> = (props) => {
         ></textarea>
       </div>
       <div className={classes.control}>
-        <input type="text" id="date" placeholder="Release Date" ref={releaseDateRef} required />
+        <input
+          type="text"
+          id="date"
+          placeholder="Release Date"
+          ref={releaseDateRef}
+          required
+        />
       </div>
       <button type="submit" disabled={Status}>
-        Add Movie
+        {Status && "Failed to Post"}
+        {!Status && "Add Movie"}
       </button>
-      <button type="button" className={classes.fetch} onClick={props.fetchMovieHandler}>
+      <button
+        type="button"
+        className={classes.fetch}
+        onClick={props.fetchMovieHandler}
+      >
         Fetch Movies
       </button>
     </form>

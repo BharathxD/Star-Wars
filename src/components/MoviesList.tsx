@@ -11,7 +11,7 @@ interface IMovieListProp {
 const MoviesList: React.FC<IMovieListProp> = (props) => {
   return (
     <ul className={classes["movies-list"]}>
-      {props.movies.map((movie) => (
+      {props.movies.map((movie: MovieType) => (
         <Movie movie={movie} key={movie.id} />
       ))}
     </ul>

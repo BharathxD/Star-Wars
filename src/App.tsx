@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
+import "./App.css";
 
 import MoviesList from "./components/MoviesList";
-import "./App.css";
-import { MoviePostType, MovieType } from "./Store/Movie.types";
+import { MovieType } from "./Store/Movie.types";
 import AddMovie from "./components/AddMovie";
 import { setMovie } from "./hooks/setMovie";
 import { getMovies } from "./hooks/getMovie";
@@ -18,7 +18,7 @@ function App() {
       setMovieData([]);
       setError(null);
       setLoading(true);
-      let data = await getMovies();
+      let data: MovieType[] = await getMovies();
       setMovieData(data);
     } catch (e) {
       setError((e as DOMException).message);
