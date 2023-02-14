@@ -3,7 +3,8 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
   border: 1px solid #fff;
   border-radius: 25px;
   margin-top: 20px;

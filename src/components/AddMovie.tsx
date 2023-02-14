@@ -1,10 +1,11 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 
 import classes from "./AddMovie.module.css";
-import { MovieType } from "../Store/Movie.types";
+import { MoviePostType } from "../Store/Movie.types";
 
 interface IAddMovie {
-  onAddMovie: (movie: MovieType) => void;
+  onAddMovie: (movie: MoviePostType) => void;
+  onPost: { status: boolean; fetch: boolean };
 }
 
 const AddMovie: React.FC<IAddMovie> = (props) => {
@@ -14,11 +15,7 @@ const AddMovie: React.FC<IAddMovie> = (props) => {
 
   function submitHandler(event: React.FormEvent) {
     event.preventDefault();
-
-    // could add validation here...
-
     const movie = {
-      id: Math.random(),
       title: titleRef.current!.value,
       openingText: openingTextRef.current!.value,
       releaseDate: releaseDateRef.current!.value,
@@ -41,7 +38,7 @@ const AddMovie: React.FC<IAddMovie> = (props) => {
         <label htmlFor="date">Release Date</label>
         <input type="text" id="date" ref={releaseDateRef} />
       </div>
-      <button>Add Movie</button>
+      <button disabled={props.onPost.status}>Add Movie</button>
     </form>
   );
 };

@@ -1,13 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { SetStateAction, useCallback, useEffect, useState } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
-import { MovieType } from "./Store/Movie.types";
+import { MoviePostType, MovieType } from "./Store/Movie.types";
 import AddMovie from "./components/AddMovie";
 
 function App() {
   const [getMovies, setMovies] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingPost, setLoadingPost] = useState({
+    status: false,
+    fetch: false,
+  });
   const [error, setError] = useState<null | string>(null);
 
   const fetchMovieHandler = useCallback(async () => {
@@ -16,23 +20,23 @@ function App() {
       setMovies([]);
       setError(null);
       setLoading(true);
-      const response = await fetch("https://swapi.dev/api/films/");
+      const response = await fetch(
+        "https://star-wars-f4c01-default-rtdb.firebaseio.com/movies.json"
+      );
       if (!response.ok) {
         throw new Error("Something went Wrong");
       }
       const data = await response.json();
-      const result = data.results;
-      result.map((data: any) => {
-        const movieData: MovieType = {
-          id: data.episode_id,
-          title: data.title,
-          openingText: data.opening_crawl,
-          releaseDate: data.release_date,
-        };
-        setMovies((prevMovies) => {
-          return [...prevMovies, movieData];
+      let loadedMovies: MovieType[] = [];
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate,
         });
-      });
+      }
+      setMovies(loadedMovies);
     } catch (e) {
       setError((e as DOMException).message);
     }
@@ -57,14 +61,27 @@ function App() {
     Content = <h4 className="error-message">Found no movies.</h4>;
   }
 
-  const addMovieHandler = (movie: MovieType) => {
-    console.log(movie);
+  const addMovieHandler = async (movie: MoviePostType) => {
+    setLoadingPost({ status: true, fetch: false });
+    const response = await fetch(
+      "https://star-wars-f4c01-default-rtdb.firebaseio.com/movies.json",
+      {
+        method: "POST",
+        body: JSON.stringify(movie),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    setLoadingPost({ status: false, fetch: true });
+    console.log(data);
   };
 
   return (
     <div className="container">
       <section>
-        <AddMovie onAddMovie={addMovieHandler} />
+        <AddMovie onAddMovie={addMovieHandler} onPost={loadingPost} />
       </section>
       <section>
         <button onClick={fetchMovieHandler}>Fetch Movies</button>
