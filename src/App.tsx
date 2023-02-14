@@ -37,7 +37,7 @@ function App() {
 
   const fetchMovieHandler = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await fetch("https://swapi.dev/api/films/");
       const data = await response.json();
       const result = data.results;
@@ -52,7 +52,7 @@ function App() {
           return [...prevMovies, movieData];
         });
       });
-      setLoading(false)
+      setLoading(false);
     } catch (e) {
       console.log(e);
     }
@@ -64,7 +64,8 @@ function App() {
         <button onClick={fetchMovieHandler}>Fetch Movies</button>
       </section>
       <section className="movies-section">
-        <MoviesList movies={getMovies} />
+        {loading && <h4>Loading it may take a while...</h4>}
+        {!loading && <MoviesList movies={getMovies} />}
       </section>
     </React.Fragment>
   );
