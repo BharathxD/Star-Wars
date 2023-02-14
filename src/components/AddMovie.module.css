@@ -18,6 +18,16 @@
   margin-bottom: 25px;
 }
 
+.fetch {
+  margin-left: 10px;
+  background-color: #dbdbdb;
+  color: #242424;
+}
+
+.fetch:hover {
+  border: 1px solid #adadad;
+}
+
 .control input,
 .control textarea {
   display: block;

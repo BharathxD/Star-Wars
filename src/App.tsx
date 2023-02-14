@@ -81,12 +81,13 @@ function App() {
   return (
     <div className="container">
       <section>
-        <AddMovie onAddMovie={addMovieHandler} onPost={loadingPost} />
+        <AddMovie
+          fetchMovieHandler={fetchMovieHandler}
+          onAddMovie={addMovieHandler}
+          onPost={loadingPost}
+        />
       </section>
-      <section>
-        <button onClick={fetchMovieHandler}>Fetch Movies</button>
-        {Content}
-      </section>
+      <section>{Content}</section>
     </div>
   );
 }

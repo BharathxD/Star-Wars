@@ -10,10 +10,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
-  gap: 50px;
-  padding: 25px;
+  padding: 10px;
 }
 
 .loading-message {
@@ -37,9 +36,8 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 25px;
   flex-direction: column;
-  padding: 50px;
+  padding: 25px;
 }
 
 @keyframes loading {
