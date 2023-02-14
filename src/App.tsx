@@ -37,6 +37,8 @@ function App() {
 
   const fetchMovieHandler = async () => {
     try {
+      //? Setting movies
+      setMovies([]);
       setLoading(true);
       const response = await fetch("https://swapi.dev/api/films/");
       const data = await response.json();
