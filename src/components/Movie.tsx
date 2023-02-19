@@ -2,18 +2,18 @@ import React from "react";
 
 import classes from "./Movie.module.css";
 
-import { MovieType } from "../Store/Movie.types";
-
 interface IMovieProps {
-  movie: MovieType;
+  title: string;
+  releaseDate: string;
+  openingText: string;
 }
 
-const Movie: React.FC<IMovieProps> = ({ movie }) => {
+const Movie: React.FC<IMovieProps> = ({ title, releaseDate, openingText }) => {
   return (
     <li className={classes.movie}>
-      <h2>{movie.title}</h2>
-      <h3 className={classes["release-date"]}>{movie.releaseDate}</h3>
-      <p>{movie.openingText}</p>
+      <h2>{title}</h2>
+      <h3 className={classes["release-date"]}>{releaseDate}</h3>
+      <p>{openingText}</p>
     </li>
   );
 };

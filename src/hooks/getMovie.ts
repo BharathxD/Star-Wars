@@ -7,14 +7,13 @@ export const getMovies = async (): Promise<MovieType[]> => {
   );
   if (!response.ok) throw new Error("Something went Wrong");
   const data: MovieType[] = await response.json();
-  let loadedMovies: MovieType[] = [];
-  for (const key in data) {
-    loadedMovies.push({
-      id: key,
-      title: data[key].title,
-      openingText: data[key].openingText,
-      releaseDate: data[key].releaseDate,
-    });
-  }
+  let loadedMovies: MovieType[] = Object.entries(data).map(
+    ([id, { title, openingText, releaseDate }]) => ({
+      id,
+      title,
+      openingText,
+      releaseDate,
+    })
+  );
   return loadedMovies;
 };

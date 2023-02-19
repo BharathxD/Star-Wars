@@ -12,7 +12,12 @@ const MoviesList: React.FC<IMovieListProps> = ({ movies }) => {
   return (
     <ul className={classes["movies-list"]}>
       {movies.map((movie: MovieType) => (
-        <Movie movie={movie} key={movie.id} />
+        <Movie
+          key={movie.id}
+          title={movie.title}
+          releaseDate={movie.releaseDate}
+          openingText={movie.releaseDate}
+        />
       ))}
     </ul>
   );
