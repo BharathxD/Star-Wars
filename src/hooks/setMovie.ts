@@ -3,7 +3,7 @@ import { MoviePostType } from "../Store/Movie.types";
 export const setMovie = async (movie: MoviePostType): Promise<boolean> => {
   try {
     await fetch(
-      "https://star-wars-f4c01-default-rtdb.firebaseio.com/movies.jso",
+      "https://star-wars-f4c01-default-rtdb.firebaseio.com/movies.json",
       {
         method: "POST",
         body: JSON.stringify(movie),

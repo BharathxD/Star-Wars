@@ -2,12 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 
 import MoviesList from "./components/MoviesList";
-import { MovieType } from "./Store/Movie.types";
 import AddMovie from "./components/AddMovie";
+import { MovieType } from "./Store/Movie.types";
 import { setMovie } from "./hooks/setMovie";
 import { getMovies } from "./hooks/getMovie";
 
-function App() {
+const App = () => {
   const [getMovieData, setMovieData] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<null | string>(null);
@@ -48,6 +48,6 @@ function App() {
       <section>{Content}</section>
     </div>
   );
-}
+};
 
 export default App;

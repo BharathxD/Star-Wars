@@ -8,7 +8,7 @@ interface IAddMovie {
   fetchMovieHandler: () => void;
 }
 
-const AddMovie: React.FC<IAddMovie> = (props) => {
+const AddMovie: React.FC<IAddMovie> = ({ onAddMovie, fetchMovieHandler }) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const openingTextRef = useRef<HTMLTextAreaElement>(null);
   const releaseDateRef = useRef<HTMLInputElement>(null);
@@ -22,7 +22,7 @@ const AddMovie: React.FC<IAddMovie> = (props) => {
       openingText: openingTextRef.current!.value,
       releaseDate: releaseDateRef.current!.value,
     };
-    const result: boolean = await props.onAddMovie(movie);
+    const result: boolean = await onAddMovie(movie);
     setStatus(!result);
     setTimeout(() => setStatus(false), 5000);
     titleRef.current!.value = "";
@@ -66,7 +66,7 @@ const AddMovie: React.FC<IAddMovie> = (props) => {
       <button
         type="button"
         className={classes.fetch}
-        onClick={props.fetchMovieHandler}
+        onClick={fetchMovieHandler}
       >
         Fetch Movies
       </button>

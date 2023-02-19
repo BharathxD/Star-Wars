@@ -4,14 +4,14 @@ import Movie from "./Movie";
 import classes from "./MoviesList.module.css";
 import { MovieType } from "../Store/Movie.types";
 
-interface IMovieListProp {
+interface IMovieListProps {
   movies: MovieType[];
 }
 
-const MoviesList: React.FC<IMovieListProp> = (props) => {
+const MoviesList: React.FC<IMovieListProps> = ({ movies }) => {
   return (
     <ul className={classes["movies-list"]}>
-      {props.movies.map((movie: MovieType) => (
+      {movies.map((movie: MovieType) => (
         <Movie movie={movie} key={movie.id} />
       ))}
     </ul>
